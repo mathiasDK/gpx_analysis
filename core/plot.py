@@ -61,7 +61,7 @@ class plot:
                 ),
                 text=title
             ),
-            margin=self.margin,
+            #margin=self.margin,
             xaxis_title=x_label,
             yaxis_title=y_label,
             legend_title=legend_title,
@@ -71,7 +71,13 @@ class plot:
 
         self.fig.update_layout(layout)
         self.fig.update_xaxes(linewidth = 1, linecolor ='black', tickfont=dict(family=self.font_family, color='#000000', size=self.tick_size))
-        self.fig.update_yaxes(linewidth = 1, linecolor = 'black', tickfont=dict(family=self.font_family, color='#000000', size=self.tick_size))
+        self.fig.update_yaxes(
+            linewidth = 1, 
+            linecolor = 'black', 
+            tickfont=dict(family=self.font_family, color='#000000', size=self.tick_size),
+            #tick0=200,
+            dtick=200
+        )
 
     def _set_end_label(self, x, y, text, color):
         """
