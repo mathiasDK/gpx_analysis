@@ -18,23 +18,27 @@ def load_data(file_path: str) -> gpxpy.gpx.GPX:
 
     return gpx
 
+def create_df_of_gpx(gpx:gpxpy.gpx.GPX) -> pd.DataFrame:
+    """Creating a dataframe from the loaded gpx file.
 
-if __name__=='__main__':
-    gpx = load_data('data/gpx_files/20220705_TMB1.gpx')
-    # print(gpx.get_track_points_no())
-    # print(gpx.get_elevation_extremes())
-    # print(gpx.get_uphill_downhill())
+    Consisting of the following columns:
+    - latitude
+    - longitude
+    - elevation
+    - time
+
+    Args:
+        gpx (gpxpy.gpx.GPX): A gpx type
+
+    Returns:
+        pd.DataFrame: A dataframe with a row per observation from the gpx file.
+    """
 
     route_info = []
-    show_info = True
 
     for track in gpx.tracks:
         for segment in track.segments:
             for point in segment.points:
-                if show_info:
-                    print(dir(point))
-                    show_info = False
-                
                 route_info.append({
                     'latitude': point.latitude,
                     'longitude': point.longitude,
@@ -43,8 +47,9 @@ if __name__=='__main__':
                 })
 
     route_df = pd.DataFrame(route_info)
-    print(route_df.head())
+    return route_df
 
-    
-
-    # print(type(gpx))
+if __name__=='__main__':
+    gpx = load_data('data/gpx_files/20220705_TMB1.gpx')
+    df = create_df_of_gpx(gpx)
+    print(df.head())
