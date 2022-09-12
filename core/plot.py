@@ -108,7 +108,43 @@ class plot:
         )
         self.show_legend=False
 
-    def continuous_grouped(self, x, y, group, mode='lines', colors=None, x_title: str=None, y_title: str=None, title: str=None, end_annotation: bool=False):
+    def _create_text_box(self, distance:int, meters_up:int, meters_down:int, duration):
+        text = f'''
+            Distance: {distance:,.0f}<br>
+            Total meters up: {meters_up:,.0f}<br>
+            Total meters down: {meters_down:,.0f}<br>
+            Duration: {duration}
+        '''
+        self.fig.add_annotation(
+            x=0.9,
+            y=0.9,
+            xref="paper",
+            yref="paper",
+            text=text,
+            font=dict(
+                family=self.font_family,
+                size=self.font_size,
+                color='black'
+                ),
+            align="right",
+            ax=0,ay=0,
+            bordercolor="#f9f9f9",
+            borderwidth=2,
+        )
+
+    def continuous_grouped(
+        self, 
+        x, 
+        y, 
+        group, 
+        mode='lines', 
+        colors=None, 
+        x_title: str=None,
+        y_title: str=None, 
+        title: str=None, 
+        end_annotation: bool=False, 
+        show_textbox:bool=False
+        ):
         """Building a plot with multiple line plots
 
         Args:
@@ -121,6 +157,7 @@ class plot:
             y_title (str, optional): Y title. Defaults to None.
             title (str, optional): Plot title. Defaults to None.
             end_annotation (bool, optional): If there should be an end annotation to the lines. Defaults to False.
+            show_textbox (bool, optional): If there should be a text box in the top right corner of the graph with describtives
 
         Returns:
             go.Figure: The figure just created.
@@ -186,7 +223,7 @@ def main():
     y = [1,2,2,2,3,5]
     group = ['a', 'a', 'a', 'b', 'b', 'b']
 
-    plot(show_fig=True).continuous_grouped(x, y, group, end_annotation=True)
+    plot(show_fig=True).continuous_grouped(x, y, group, end_annotation=True, show_textbox=True)
     plot(show_fig=True).continuous(x[:3], y[:3], end_annotation=True)
 
 if __name__=='__main__':
