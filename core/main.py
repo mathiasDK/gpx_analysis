@@ -17,10 +17,12 @@ def main():
 
         start_city = route_desc['route_description'][day]['start']
         end_city = route_desc['route_description'][day]['end']
+        total_distance_meters = round(sum(df['distance']), 0)
         meters_up = round(sum(df[df['height_change']>0]['height_change']), 0)
         meters_down = round(sum(df[df['height_change']<0]['height_change']), 0)*-1.
 
-        plot(show_fig=True).continuous(
+        gpx_elevation_figure=plot()
+        gpx_elevation_figure.continuous(
             df.acc_distance_km.tolist(), 
             df.elevation.tolist(), 
             end_annotation=True,
@@ -28,6 +30,13 @@ def main():
             x_title='Km',
             y_title='Højde'
         )
+        gpx_elevation_figure.create_text_box(
+            distance=total_distance_meters,
+            meters_up=meters_up,
+            meters_down=meters_down,
+            duration=None
+        )
+        gpx_elevation_figure.show()
 
 if __name__=='__main__':
     main()

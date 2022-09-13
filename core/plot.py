@@ -108,12 +108,11 @@ class plot:
         )
         self.show_legend=False
 
-    def _create_text_box(self, distance:int, meters_up:int, meters_down:int, duration):
+    def create_text_box(self, distance:int, meters_up:int, meters_down:int, duration):
         text = f'''
-            Distance: {distance:,.0f}<br>
-            Total meters up: {meters_up:,.0f}<br>
-            Total meters down: {meters_down:,.0f}<br>
-            Duration: {duration}
+            Distance: {distance:,.0f}m <br>
+            Højdemeter op: {meters_up:,.0f} <br>
+            Højdemeter ned: {meters_down:,.0f} <br>
         '''
         self.fig.add_annotation(
             x=0.9,
@@ -128,8 +127,10 @@ class plot:
                 ),
             align="right",
             ax=0,ay=0,
-            bordercolor="#f9f9f9",
-            borderwidth=2,
+            #bordercolor="#f9f9f9",
+            #borderwidth=2,
+            #bgcolor="#f9f9f9",
+            #opacity=0.85,
         )
 
     def continuous_grouped(
@@ -218,13 +219,19 @@ class plot:
 
         return self.fig
 
+    def show(self):
+        self.fig.show()
+
 def main():
     x = [1,2,3,1,2,3]
     y = [1,2,2,2,3,5]
     group = ['a', 'a', 'a', 'b', 'b', 'b']
 
-    plot(show_fig=True).continuous_grouped(x, y, group, end_annotation=True, show_textbox=True)
-    plot(show_fig=True).continuous(x[:3], y[:3], end_annotation=True)
+    a=plot(show_fig=False)
+    a.create_text_box(distance=2,meters_up=2,meters_down=2,duration=2)
+    a.continuous_grouped(x, y, group, end_annotation=True, show_textbox=True)
+    a.fig.show()
+    #plot(show_fig=True).continuous(x[:3], y[:3], end_annotation=True)
 
 if __name__=='__main__':
     main()
