@@ -18,15 +18,15 @@ def main():
         start_city = route_desc['route_description'][day]['start']
         end_city = route_desc['route_description'][day]['end']
         total_distance_meters = round(sum(df['distance']), 0)
-        meters_up = round(sum(df[df['height_change']>0]['height_change']), 0)
-        meters_down = round(sum(df[df['height_change']<0]['height_change']), 0)*-1.
+        meters_up = round(sum(df[df['height_change']<0]['height_change']), 0)*-1.
+        meters_down = round(sum(df[df['height_change']>0]['height_change']), 0)
 
         gpx_elevation_figure=plot()
         gpx_elevation_figure.continuous(
             df.acc_distance_km.tolist(), 
             df.elevation.tolist(), 
             end_annotation=True,
-            title=f'Dag {day+1}<br>{start_city} - {end_city}',
+            title=f'Dag {day+1}: {start_city} - {end_city}',
             x_title='Km',
             y_title='Højde'
         )

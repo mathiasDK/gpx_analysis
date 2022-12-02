@@ -5,7 +5,7 @@ class plot:
     This class will be used to create all necessary plots in a consistent format.
     """
 
-    def __init__(self, fig=None, width=800, height=400, title_size=14, tick_size=10, axis_size=10, font_size=10, show_fig=False) -> None:
+    def __init__(self, fig=None, width=800, height=400, title_size=20, tick_size=10, axis_size=12, font_size=12, show_fig=False) -> None:
         if not fig:
             self.fig = go.Figure()
         else:
@@ -18,10 +18,10 @@ class plot:
         self.font_size = font_size
         self.show_fig = show_fig
         self.margin = {
-            't': 100,
-            'b': 100,
-            'l': 100,
-            'r': 100
+            't': 50,
+            'b': 10,
+            'l': 10,
+            'r': 10
         }
         self.font_family = 'Arial'
         self.colorDict = {
@@ -61,9 +61,10 @@ class plot:
                 ),
                 text=title
             ),
-            #margin=self.margin,
+            margin=self.margin,
             xaxis_title=x_label,
             yaxis_title=y_label,
+            title_x=0.5,
             legend_title=legend_title,
             showlegend=self.show_legend,
             colorway=self.colorList
